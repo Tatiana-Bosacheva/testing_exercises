@@ -3,44 +3,17 @@ import pytest
 from functions.level_2.five_replace_word import replace_word
 
 
-def test__replace_word__change_words():
-    text = 'Сегодня прекрасная погода'
-    replace_from = 'прекрасная'
-    replace_to = 'хорошая'
-
-    res = replace_word(text, replace_from, replace_to)
-
-    assert res == 'Сегодня хорошая погода'
-
-
-def test__replace_word__no_change_words():
-    text = 'Сегодня прекрасная погода'
-    replace_from = 'хорошая'
-    replace_to = 'прекрасная'
-
-    res = replace_word(text, replace_from, replace_to)
-
-    assert res == 'Сегодня прекрасная погода'
-
-
-def test__replace_word__text_is_empty_string():
-    text = ''
-    replace_from = 'прекрасная'
-    replace_to = 'хорошая'
-
-    res = replace_word(text, replace_from, replace_to)
-
-    assert res == ''
-
-
-def test__replace_word__all_arguments_is_empty_string():
-    text = ''
-    replace_from = ''
-    replace_to = ''
-
-    res = replace_word(text, replace_from, replace_to)
-
-    assert res == ''
+@pytest.mark.parametrize(
+        "text, replace_from, replace_to, result", 
+        [
+            ('Сегодня прекрасная погода', 'прекрасная', 'хорошая', 'Сегодня хорошая погода'),
+            ('Сегодня прекрасная погода', 'хорошая', 'прекрасная', 'Сегодня прекрасная погода'),
+            ('', 'прекрасная', 'хорошая', ''), 
+            ('', '', '', ''), 
+        ]
+)
+def test_replace_word(text, replace_from, replace_to, result):
+    assert replace_word(text, replace_from, replace_to) == result
 
 
 def test__replace_word__one_argument_replace_and_text_not_need_type():
